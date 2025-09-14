@@ -1,0 +1,19 @@
+/* index.css */
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Urbanist",sans-serif;
+}
+
+@layer base {
+  html{
+    font-family: var(--font-display);
+  }
+  body {
+    /* Фоновый цвет может быть изменен, если по умолчанию сайт должен быть светлым */
+    /* Если dark-mode по умолчанию, то черный фон подходит */
+    background-color: black;
+    overflow-x: hidden;
+  }
+}
