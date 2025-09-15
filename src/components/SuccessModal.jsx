@@ -1,7 +1,10 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, X, Sparkles } from "lucide-react";
+import { useTranslation } from "react-i18next"; // 1. Импортируем useTranslation
 
 const SuccessModal = ({ showSuccess, setShowSuccess, isDarkMode }) => {
+    const { t } = useTranslation(); // 2. Инициализируем функцию перевода
+
     return (
         <AnimatePresence>
             {showSuccess && (
@@ -21,7 +24,6 @@ const SuccessModal = ({ showSuccess, setShowSuccess, isDarkMode }) => {
                             }`}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {/* Close Button */}
                         <button
                             onClick={() => setShowSuccess(false)}
                             className={`absolute top-4 right-4 p-1 rounded-full transition-colors ${isDarkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"
@@ -30,7 +32,6 @@ const SuccessModal = ({ showSuccess, setShowSuccess, isDarkMode }) => {
                             <X size={18} />
                         </button>
 
-                        {/* Animated Check Icon */}
                         <motion.div
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
@@ -40,27 +41,24 @@ const SuccessModal = ({ showSuccess, setShowSuccess, isDarkMode }) => {
                             <CheckCircle size={32} className="text-white"/>
                         </motion.div>
 
-                        {/* Animated Title */}
                         <motion.h3
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.3 }}
                             className="text-2xl font-medium mb-2"
                         >
-                            Сообщение отправлено!
+                            {t("successModal.title")} {/* 3. Переводим заголовок */}
                         </motion.h3>
 
-                        {/* Animated Description */}
                         <motion.p
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.4 }}
                             className={` ${isDarkMode ? "text-gray-400" : "text-gray-600"} mb-6`}
                         >
-                            Спасибо за ваше обращение! Мы свяжемся с вами в течение 24 часов.
+                           {t("successModal.description")} {/* 4. Переводим описание */}
                         </motion.p>
 
-                        {/* Animated Sparkles */}
                         <motion.div
                             initial={{ opacity: 0, scale: 0 }}
                             animate={{ opacity: 1, scale: 1 }}

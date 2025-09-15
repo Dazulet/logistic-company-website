@@ -3,14 +3,15 @@ import { useState } from 'react'
 import {
     motion, AnimatePresence,
 } from "framer-motion";
-import { Truck, Sun, Moon, Menu, X } from "lucide-react"; // Изменили Code2 на Truck для логистической компании
+import { Truck, Sun, Moon, Menu, X, Globe } from "lucide-react"; // ДОБАВИЛИ Globe для языка
 
 import { useTheme } from "../Context/ThemeContext"
-
+import { useTranslation } from 'react-i18next'; // <-- ИМПОРТИРУЕМ useTranslation
 
 const Navbar = () => {
-    const { isDarkMode, toggleTheme } = useTheme(); 
-        const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { isDarkMode, toggleTheme, language, toggleLanguage, toggleCurrency, currency } = useTheme(); // <-- language, toggleLanguage, toggleCurrency, currency
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { t } = useTranslation(); // <-- ИСПОЛЬЗУЕМ useTranslation
 
     const scrollToSection = (sectionId) => {
         const element = document.getElementById(sectionId);
@@ -22,15 +23,14 @@ const Navbar = () => {
 
     // Обновленный список навигационных элементов для логистической компании
     const navItems = [
-        { name: "Калькулятор", id: "calculator" }, // Можно добавить, если будет секция
-        { name: "Трекинг", id: "tracking" }, // Можно добавить, если будет секция
-        { name: "Главная", id: "home" },
-        { name: "Услуги", id: "services" }, // Соответствует ServicesSection
-        { name: "О компании", id: "about-company" }, // Соответствует AboutCompanySection
-        
-        { name: "Кейсы", id: "cases" }, 
-        { name: "Команда", id: "team" }, // Можно добавить, если будет секция
-        { name: "Контакты", id: "contact-us" }, // Соответствует ContactUsSection
+        { name: t("navbar.calculator"), id: "calculator" },
+        { name: t("navbar.tracking"), id: "tracking" },
+        { name: t("navbar.home"), id: "home" },
+        { name: t("navbar.services"), id: "services" },
+        { name: t("navbar.aboutCompany"), id: "about-company" },
+        // { name: t("navbar.cases"), id: "cases" },
+        { name: t("navbar.team"), id: "team" },
+        { name: t("navbar.contactUs"), id: "contact-us" },
     ];
 
     return (
@@ -55,8 +55,31 @@ const Navbar = () => {
                             {item.name}
                         </motion.button>
                     ))}
+
+                    {/* КНОПКА ВАЛЮТЫ */}
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={toggleCurrency}
+                        className={`p-2 rounded-full transition-colors ${isDarkMode ? "text-gray-400 hover:text-white hover:bg-gray-800" : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"}`}
+                        title={currency === 'KZT' ? t("calculatorSection.showInUSD") : t("calculatorSection.showInKZT")}
+                    >
+                        <span className="font-semibold text-sm">
+                            {currency === 'KZT' ? '₸' : '$'}
+                        </span>
+                    </motion.button>
                     
-                    {/* КНОПКА ВАЛЮТЫ УДАЛЕНА ОТСЮДА */}
+                    {/* КНОПКА ЯЗЫКА */}
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={toggleLanguage}
+                        className={`p-2 rounded-full transition-colors flex items-center gap-1 ${isDarkMode ? "text-gray-400 hover:text-white hover:bg-gray-800" : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"}`}
+                        title={language === 'ru' ? 'Switch to English' : 'Переключить на Русский'}
+                    >
+                        <Globe size={18} />
+                        <span className="font-semibold text-sm">{language.toUpperCase()}</span>
+                    </motion.button>
 
                     <motion.button
                         whileHover={{ scale: 1.05 }}
@@ -69,7 +92,30 @@ const Navbar = () => {
                 </div>
 
                 <div className="md:hidden flex items-center space-x-2">
-                    {/* КНОПКА ВАЛЮТЫ УДАЛЕНА ОТСЮДА */}
+                    {/* КНОПКА ВАЛЮТЫ */}
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={toggleCurrency}
+                        className={`p-2 rounded-full transition-colors ${isDarkMode ? "text-gray-400 hover:text-white hover:bg-gray-800" : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"}`}
+                        title={currency === 'KZT' ? t("calculatorSection.showInUSD") : t("calculatorSection.showInKZT")}
+                    >
+                        <span className="font-semibold text-sm">
+                            {currency === 'KZT' ? '₸' : '$'}
+                        </span>
+                    </motion.button>
+
+                    {/* КНОПКА ЯЗЫКА */}
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={toggleLanguage}
+                        className={`p-2 rounded-full transition-colors flex items-center gap-1 ${isDarkMode ? "text-gray-400 hover:text-white hover:bg-gray-800" : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"}`}
+                        title={language === 'ru' ? 'Switch to English' : 'Переключить на Русский'}
+                    >
+                        <Globe size={18} />
+                        <span className="font-semibold text-sm">{language.toUpperCase()}</span>
+                    </motion.button>
 
                     <motion.button
                         whileHover={{ scale: 1.05 }}
@@ -109,6 +155,31 @@ const Navbar = () => {
                                 {item.name}
                             </motion.button>
                         ))}
+                        {/* КНОПКИ ВАЛЮТЫ И ЯЗЫКА В МОБИЛЬНОМ МЕНЮ */}
+                        <div className="flex justify-start gap-4 mt-4">
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={toggleCurrency}
+                                className={`p-2 rounded-full transition-colors ${isDarkMode ? "text-gray-400 hover:text-white hover:bg-gray-800" : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"}`}
+                                title={currency === 'KZT' ? t("calculatorSection.showInUSD") : t("calculatorSection.showInKZT")}
+                            >
+                                <span className="font-semibold text-sm">
+                                    {currency === 'KZT' ? '₸' : '$'}
+                                </span>
+                            </motion.button>
+
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={toggleLanguage}
+                                className={`p-2 rounded-full transition-colors flex items-center gap-1 ${isDarkMode ? "text-gray-400 hover:text-white hover:bg-gray-800" : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"}`}
+                                title={language === 'ru' ? 'Switch to English' : 'Переключить на Русский'}
+                            >
+                                <Globe size={18} />
+                                <span className="font-semibold text-sm">{language.toUpperCase()}</span>
+                            </motion.button>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>

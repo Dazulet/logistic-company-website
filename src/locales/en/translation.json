@@ -1,0 +1,212 @@
+{
+  "heroSection": {
+    "subtitle": "Reliable Delivery Worldwide",
+    "title1": "Your reliable",
+    "title2": "logistics",
+    "title3": "partner",
+    "description": "Comprehensive solutions for your business, from warehouse to door. Efficient, safe, on time.",
+    "buttonServices": "Our Services",
+    "buttonContact": "Contact Us",
+    "keywords": {
+      "auto": "Road Freight",
+      "air": "Air Freight",
+      "sea": "Sea Cargo",
+      "warehouse": "Warehousing"
+    },
+    "scrollIndicator": "Scroll Down",
+    "missionSubtitle": "Discover new horizons for your business",
+    "missionTitle1": "We move your",
+    "missionTitle2": "world",
+    "missionTitle3": "with care and precision",
+    "missionDescription": "We offer a full range of logistics services, ensuring reliable and fast delivery of your goods to any part of the world."
+  },
+  "navbar": {
+    "calculator": "Calculator",
+    "tracking": "Tracking",
+    "home": "Home",
+    "services": "Services",
+    "aboutCompany": "About Us",
+    "cases": "Cases",
+    "team": "Team",
+    "contactUs": "Contact"
+  },
+  "servicesSection": {
+    "subtitle": "Our key competencies",
+    "title": "Our <1>Services</1>",
+    "description": "We offer a full range of logistics solutions for efficient management of your supplies.",
+    "autoTransport": {
+      "title": "Road Freight",
+      "description": "Flexible and fast delivery of goods by road across the CIS and Europe. Full control at all stages of the route."
+    },
+    "seaRiverTransport": {
+      "title": "Sea & River Freight",
+      "description": "Cost-effective solutions for intercontinental delivery of large batches and oversized cargo."
+    },
+    "airFreight": {
+      "title": "Air Freight",
+      "description": "Maximum speed of delivery for urgent, valuable, and perishable goods to anywhere in the world."
+    },
+    "warehousing": {
+      "title": "Warehousing & Fulfillment",
+      "description": "Responsible storage, processing, picking, and packaging of orders for your business and e-commerce."
+    },
+    "stats": {
+      "clients": "Satisfied Clients",
+      "years": "Years in Market",
+      "tons": "Tons of Cargo Delivered",
+      "countries": "Countries Covered"
+    }
+  },
+  "aboutCompanySection": {
+    "subtitle": "Learn more about us",
+    "title": "About <1>Global Cargo</1>",
+    "missionTitle": "Our mission",
+    "missionText1": "We strive to provide first-class logistics services that help our clients grow and succeed. Our goal is to be not just an executor, but a reliable partner in the supply chain.",
+    "missionText2": "Based on innovation, responsibility, and an individual approach, we build long-term relationships and ensure flawless execution of every task.",
+    "valuesTitle": "Our values",
+    "values": {
+      "reliability": {
+        "title": "Reliability",
+        "description": "We guarantee the safety of your cargo and adherence to all obligations."
+      },
+      "efficiency": {
+        "title": "Efficiency",
+        "description": "We optimize routes and processes to save your time and money."
+      },
+      "individualApproach": {
+        "title": "Individual approach",
+        "description": "We develop solutions taking into account the unique needs of each client."
+      },
+      "punctuality": {
+        "title": "Punctuality",
+        "description": "We strictly adhere to delivery times so that your business runs smoothly."
+      }
+    },
+    "signatureText": "Your reliable logistics partner",
+    "signatureCompany": "Global Cargo",
+    "historyTitle": "Our development history",
+    "journeySteps": {
+      "foundation": {
+        "title": "Company Foundation",
+        "company": "Global Cargo",
+        "description": "Started our journey with organizing local road freight, laying the foundation for reliability and quality."
+      },
+      "internationalLaunch": {
+        "title": "Launch of International Freight",
+        "company": "Entering new markets",
+        "description": "Expanded geography, successfully implementing the first projects for cargo delivery from Europe and China."
+      },
+      "newWarehouse": {
+        "title": "Opening of a new A+ class warehouse",
+        "company": "Infrastructure expansion",
+        "description": "Launched a modern warehouse complex to provide a full range of services for cargo storage and processing."
+      },
+      "award": {
+        "title": "Logistics Company of the Year Award",
+        "company": "Industry recognition",
+        "description": "Received a prestigious industry award for innovative solutions and high level of customer service."
+      }
+    },
+    "ctaText": "Ready to discuss your logistics challenges?",
+    "ctaButton": "Contact Us"
+  },
+  "casesSection": {
+    "subtitle": "Our experience in action",
+    "title": "Completed <1>Projects</1>",
+    "description": "See examples of successfully completed tasks that demonstrate our expertise and approach to work.",
+    "readCase": "Read Case"
+  },
+  "teamSection": {
+    "subtitle": "Our Experts",
+    "title": "Team of <1>Professionals</1>",
+    "description": "Meet the key specialists who ensure the success of your deliveries.",
+    "members": {
+      "ivan": {
+        "name": "Ivan Petrov",
+        "position": "CEO",
+        "description": "Over 15 years of experience in international logistics. Defines the company's strategic development."
+      },
+      "maria": {
+        "name": "Maria Smirnova",
+        "position": "Head of Sales",
+        "description": "Will help you find the optimal and most profitable solution for any of your logistics tasks."
+      },
+      "alexey": {
+        "name": "Alexey Novikov",
+        "position": "Operations Director",
+        "description": "Ensures seamless and timely delivery of every cargo."
+      }
+    }
+  },
+  "contactUsSection": {
+    "subtitle": "Stay in touch",
+    "title": "Contact <1>Us</1>",
+    "description": "Have a question or ready to start a project? Send us a message and we'll get back to you shortly to discuss the details.",
+    "formTitle": "Send a request",
+    "namePlaceholder": "Your Name",
+    "emailPlaceholder": "Your Email",
+    "messagePlaceholder": "Describe your task",
+    "submitButton": "Send Message",
+    "submitting": "Sending...",
+    "contactInfoTitle": "Contact Information",
+    "socialMediaTitle": "We are on social media",
+    "statusOpen": "Open for new projects",
+    "statusDescription": "We are always ready to consider new opportunities for cooperation and partnership."
+  },
+  "successModal": {
+    "title": "Message Sent!",
+    "description": "Thank you for your inquiry! We will contact you within 24 hours."
+  },
+  "calculatorSection": {
+    "subtitle": "Tools for your convenience",
+    "title": "Tariff Calculator",
+    "fromLabel": "From",
+    "toLabel": "To",
+    "weightLabel": "Weight (kg)",
+    "lengthLabel": "Length (cm)",
+    "widthLabel": "Width (cm)",
+    "heightLabel": "Height (cm)",
+    "cargoTypeLabel": "Cargo Type",
+    "transportModeLabel": "Transport Mode",
+    "autoMode": "Auto",
+    "airMode": "Air",
+    "calculateButton": "Calculate",
+    "resultTitle": "Result",
+    "showInUSD": "Show in USD",
+    "showInKZT": "Show in KZT",
+    "estimatedCost": "Estimated Cost",
+    "estimatedDeliveryTime": "Estimated Delivery Time",
+    "calculatedWeight": "Calculated Weight",
+    "disclaimer": "* The calculation is preliminary. For an exact calculation, please contact our manager.",
+    "fillAllFields": "Fill in all fields to get a calculation.",
+    "errors": {
+      "sameLocation": "Origin and destination cities cannot be the same.",
+      "invalidWeight": "Please enter a valid weight (greater than 0).",
+      "notFound": "Track number \"{{trackNumber}}\" not found. Try one of these: GL-123456, GL-987654, GL-000000"
+    }
+  },
+  "trackingSection": {
+    "title": "Cargo <1>Tracking</1>",
+    "description": "Enter your track number to find out the current status and movement history of your shipment.",
+    "placeholder": "For example, GL-123456",
+    "findButton": "Find",
+    "trackNumberLabel": "Track Number",
+    "routeLabel": "Route",
+    "currentStatusLabel": "Current Status",
+    "status": {
+      "inTransit": "In Transit",
+      "delivered": "Delivered",
+      "delayed": "Delayed",
+      "transferredToCourier": "Transferred to courier for delivery",
+      "arrivedAtSortingCenter": "Arrived at sorting center",
+      "leftSortingCenter": "Left sorting center",
+      "acceptedAtBranch": "Accepted at branch",
+      "deliveredToRecipient": "Delivered and handed to recipient",
+      "customsCleared": "Customs cleared",
+      "shippedFromOriginCountry": "Shipped from origin country",
+      "customsDelay": "Customs delay",
+      "arrivedInDestinationCountry": "Arrived in destination country"
+    },
+    "errorPrefix": "Track number \"{{trackNumber}}\" not found. Try one of these: GL-123456, GL-987654, GL-000000"
+  }
+}

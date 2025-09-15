@@ -1,16 +1,18 @@
 import React from 'react'
 import { motion, useScroll, useTransform } from "framer-motion"
-import { ArrowDown, Mail, Phone, MapPin } from "lucide-react" // Добавим иконки для контактов, если нужны
-import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa"; // Используем иконки из react-icons
+import { ArrowDown, Mail, Phone, MapPin } from "lucide-react"
+import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { useTheme } from '../../Context/ThemeContext'
+import { useTranslation } from 'react-i18next'; // <-- ИМПОРТИРУЕМ useTranslation
 
-import COMPANY_HERO_PIC from "../../assets/images/logistics_hero.png" // Новое изображение для Hero Section
-import COMPANY_LOGO_SIGNATURE from "../../assets/images/logo_signature.svg" // Если есть логотип для подписи или как часть дизайна
+import COMPANY_HERO_PIC from "../../assets/images/logistics_hero.png"
+// import COMPANY_LOGO_SIGNATURE from "../../assets/images/logo_signature.svg" // Удалено, если не используется
 
 import { containerVariants, itemVariants } from '../../utils/helper'
 
 const HeroSection = () => {
   const { isDarkMode } = useTheme();
+  const { t } = useTranslation(); // <-- ИСПОЛЬЗУЕМ useTranslation
 
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 500], [0, -100]); // Эффект параллакса при скролле
@@ -117,7 +119,7 @@ const HeroSection = () => {
                   isDarkMode ? "text-gray-500" : "text-gray-600"
                 } mb-4`}
               >
-                Надежная доставка по всему миру
+                {t("heroSection.subtitle")}
               </motion.div>
 
               <motion.h1
@@ -125,12 +127,12 @@ const HeroSection = () => {
                 className="text-3xl md:text-5xl font-light mb-6 leading-tight"
               >
                 <span className={`${isDarkMode ? "text-white" : "text-gray-900"}`}>
-                  Ваш надежный
+                  {t("heroSection.title1")}
                 </span>
-                <span className="text-blue-500 font-medium ml-2">логистический</span>
+                <span className="text-blue-500 font-medium ml-2">{t("heroSection.title2")}</span>
                 <br />
                 <span className={`${isDarkMode ? "text-white" : "text-gray-900"}`}>
-                  партнер
+                  {t("heroSection.title3")}
                 </span>
               </motion.h1>
 
@@ -140,7 +142,7 @@ const HeroSection = () => {
                   isDarkMode ? "text-gray-400" : "text-gray-600"
                 } mb-8 max-w-xl mx-auto font-light leading-relaxed`}
               >
-                Комплексные решения для вашего бизнеса, от склада до двери. Эффективно, безопасно, вовремя.
+                {t("heroSection.description")}
               </motion.p>
 
               {/* Кнопки CTA для мобильных */}
@@ -154,7 +156,7 @@ const HeroSection = () => {
                   onClick={() => scrollToSection("services")} // Скролл к секции "Услуги"
                   className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300"
                 >
-                  Наши Услуги
+                  {t("heroSection.buttonServices")}
                 </motion.button>
                 <motion.button
                   whileHover={{ y: -2 }}
@@ -166,7 +168,7 @@ const HeroSection = () => {
                       : "border-gray-300 hover:border-gray-400 text-gray-700"
                   } px-8 py-3 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300`}
                 >
-                  Связаться с Нами
+                  {t("heroSection.buttonContact")}
                 </motion.button>
               </motion.div>
 
@@ -176,11 +178,11 @@ const HeroSection = () => {
                 className="flex justify-center space-x-6 mb-8"
               >
                 {[
-                  { icon: FaFacebookF, href: "#" }, // Используем иконки из react-icons
+                  { icon: FaFacebookF, href: "#" },
                   { icon: FaInstagram, href: "#" },
                   { icon: FaLinkedinIn, href: "#" },
-                  { icon: Phone, href: "#" }, // Телефон
-                  { icon: Mail, href: "#" }, // Почта
+                  { icon: Phone, href: "#" },
+                  { icon: Mail, href: "#" },
                 ].map((social, index) => (
                   <motion.a
                     key={index}
@@ -203,25 +205,25 @@ const HeroSection = () => {
                 className="flex justify-center items-center space-x-6 text-xs uppercase tracking-widest flex-wrap"
               >
                 <span className={`${isDarkMode ? "text-gray-600" : "text-gray-500"}`}>
-                  Автоперевозки
+                  {t("heroSection.keywords.auto")}
                 </span>
                 <span className={`${isDarkMode ? "text-gray-700" : "text-gray-400"}`}>
                   .
                 </span>
                 <span className={`${isDarkMode ? "text-gray-600" : "text-gray-500"}`}>
-                  Авиадоставка
+                  {t("heroSection.keywords.air")}
                 </span>
                 <span className={`${isDarkMode ? "text-gray-700" : "text-gray-400"}`}>
                   .
                 </span>
                 <span className={`${isDarkMode ? "text-gray-600" : "text-gray-500"}`}>
-                  Морские Грузы
+                  {t("heroSection.keywords.sea")}
                 </span>
                 <span className={`${isDarkMode ? "text-gray-700" : "text-gray-400"}`}>
                   .
                 </span>
                 <span className={`${isDarkMode ? "text-gray-600" : "text-gray-500"}`}>
-                  Склад
+                  {t("heroSection.keywords.warehouse")}
                 </span>
               </motion.div>
             </motion.div>
@@ -242,7 +244,7 @@ const HeroSection = () => {
                   isDarkMode ? "text-gray-500" : "text-gray-600"
                 } mb-6`}
               >
-                Откройте новые горизонты для вашего бизнеса
+                {t("heroSection.missionSubtitle")}
               </motion.div>
 
               <motion.h1
@@ -250,11 +252,11 @@ const HeroSection = () => {
                 className="text-5xl xl:text-7xl font-light mb-8 leading-tight"
               >
                 <span className={`${isDarkMode ? "text-white" : "text-gray-900"}`}>
-                  Перевозим ваш
+                  {t("heroSection.missionTitle1")}
                 </span>
-                <span className="text-blue-500 font-medium"> мир </span>
+                <span className="text-blue-500 font-medium"> {t("heroSection.missionTitle2")} </span>
                 <span className={`${isDarkMode ? "text-white" : "text-gray-900"}`}>
-                  с заботой и точностью
+                  {t("heroSection.missionTitle3")}
                 </span>
               </motion.h1>
 
@@ -264,7 +266,7 @@ const HeroSection = () => {
                   isDarkMode ? "text-gray-400" : "text-gray-600"
                 } mb-12 font-light leading-relaxed max-w-lg`}
               >
-                Мы предлагаем полный спектр логистических услуг, обеспечивая надежную и быструю доставку ваших грузов в любую точку мира.
+                {t("heroSection.missionDescription")}
               </motion.p>
 
               {/* Кнопки CTA для десктопа */}
@@ -275,7 +277,7 @@ const HeroSection = () => {
                   onClick={() => scrollToSection("services")} // Скролл к секции "Услуги"
                   className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300"
                 >
-                  Наши Услуги
+                  {t("heroSection.buttonServices")}
                 </motion.button>
                 <motion.button
                   whileHover={{ y: -2 }}
@@ -287,7 +289,7 @@ const HeroSection = () => {
                       : "border-gray-300 hover:border-gray-400 text-gray-700"
                   } px-8 py-4 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300`}
                 >
-                  Связаться с Нами
+                  {t("heroSection.buttonContact")}
                 </motion.button>
               </motion.div>
 
@@ -330,25 +332,25 @@ const HeroSection = () => {
                     className="flex items-center space-x-8 text-xs uppercase tracking-widest absolute -top-16 -left-28"
                     >
                       <span className={`${isDarkMode ? "text-gray-600" : "text-gray-500"}`}>
-                        Автоперевозки
+                        {t("heroSection.keywords.auto")}
                       </span>
                       <span className={`${isDarkMode ? "text-gray-700" : "text-gray-400"}`}>
                         .
                       </span>
                       <span className={`${isDarkMode ? "text-gray-600" : "text-gray-500"}`}>
-                        Авиадоставка
+                        {t("heroSection.keywords.air")}
                       </span>
                       <span className={`${isDarkMode ? "text-gray-700" : "text-gray-400"}`}>
                         .
                       </span>
                       <span className={`${isDarkMode ? "text-gray-600" : "text-gray-500"}`}>
-                        Морские Грузы
+                        {t("heroSection.keywords.sea")}
                       </span>
                       <span className={`${isDarkMode ? "text-gray-700" : "text-gray-400"}`}>
                         .
                       </span>
                       <span className={`${isDarkMode ? "text-gray-600" : "text-gray-500"}`}>
-                        Склад
+                        {t("heroSection.keywords.warehouse")}
                       </span>
                   </motion.div>
                   <motion.div
@@ -358,7 +360,7 @@ const HeroSection = () => {
                     } shadow-2xl`}
                   >
                     <img
-                      src={COMPANY_HERO_PIC} // Используем новое изображение
+                      src={COMPANY_HERO_PIC}
                       alt="Global Cargo"
                       className="w-full h-full object-cover"
                     />
@@ -391,10 +393,14 @@ const HeroSection = () => {
             size={20}
             className={isDarkMode ? "text-gray-600" : "text-gray-400"}
           />
+          {/* Добавляем текст для индикатора прокрутки */}
+          <span className={`block text-xs mt-2 ${isDarkMode ? "text-gray-500" : "text-gray-700"}`}>
+            {t("heroSection.scrollIndicator")}
+          </span>
         </motion.div>
       </motion.section>
     </div>
   )
 }
 
-export default HeroSection
+export default HeroSection;
