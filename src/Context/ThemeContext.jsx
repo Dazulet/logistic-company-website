@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next"; // <-- ДОБАВИТЬ ЭТУ �
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-   const { i18n } = useTranslation(); // Теперь useTranslation будет определен
+  const { i18n } = useTranslation(); // Теперь useTranslation будет определен
   // --- Управление темой (остается без изменений) ---
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") || "light"
@@ -29,7 +29,9 @@ export const ThemeProvider = ({ children }) => {
   const [currency, setCurrency] = useState("KZT"); // По умолчанию - тенге
 
   // Условный курс, который мы будем использовать для конвертации
-  const USD_RATE = 450; 
+  const USD_RATE = 500;
+  
+
 
   // Функция для переключения валюты
   const toggleCurrency = () => {
@@ -38,7 +40,7 @@ export const ThemeProvider = ({ children }) => {
 
   // --- НОВОЕ: Управление языком ---
   // Инициализируем текущим языком i18n ИЛИ значением по умолчанию 'ru'
-  const [language, setLanguage] = useState(i18n.language || 'ru'); 
+  const [language, setLanguage] = useState(i18n.language || 'ru');
 
   useEffect(() => {
     // Обновляем язык i18n при изменении состояния language
@@ -73,8 +75,8 @@ export const ThemeProvider = ({ children }) => {
     currency,
     toggleCurrency,
     USD_RATE,
-    language,       
-    toggleLanguage, 
+    language,
+    toggleLanguage,
   };
 
   return (

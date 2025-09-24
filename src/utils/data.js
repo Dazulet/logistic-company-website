@@ -27,6 +27,65 @@ import CASE_IMG_1 from "../assets/images/case_auto.png";
 import CASE_IMG_2 from "../assets/images/case_warehousing.png";
 import CASE_IMG_3 from "../assets/images/case_ecommerce.png";
 
+export const COMPANY_NAME = "Keruen Logistics";
+export const UTP_ITEMS = [
+    { id: "turnkey", titleKey: "utpSection.title_1", descriptionKey: "utpSection.desc_1" },
+    { id: "manager", titleKey: "utpSection.title_2", descriptionKey: "utpSection.desc_2" },
+    { id: "transparency", titleKey: "utpSection.title_3", descriptionKey: "utpSection.desc_3" }
+];
+export const MAIN_STATS = [
+    { value: "500+", labelKey: "statsSection.clients" },
+    { value: "99.8%", labelKey: "statsSection.safety" },
+    { value: "2-5", labelKey: "statsSection.delivery_time" }
+];
+export const REVIEWS = [
+    { id: 1, textKey: "reviewsSection.review_1_text", authorKey: "reviewsSection.review_1_author" },
+    { id: 2, textKey: "reviewsSection.review_2_text", authorKey: "reviewsSection.review_2_author" }
+];
+export const SERVICES_LIST = [
+    { 
+        id: "air", 
+        titleKey: "servicesPage.air.title", 
+        descKey: "servicesPage.air.desc", 
+        featuresKey: "servicesPage.air.features", 
+        suitedForKey: "servicesPage.air.suited_for",
+        icon: Plane
+    },
+    { 
+        id: "customs", 
+        titleKey: "servicesPage.customs.title", 
+        descKey: "servicesPage.customs.desc", 
+        featuresKey: "servicesPage.customs.features", 
+        suitedForKey: "servicesPage.customs.suited_for",
+        icon: Briefcase
+    },
+    { 
+        id: "procurement", 
+        titleKey: "servicesPage.procurement.title", 
+        descKey: "servicesPage.procurement.desc", 
+        featuresKey: "servicesPage.procurement.features", 
+        suitedForKey: "servicesPage.procurement.suited_for",
+        icon: Warehouse
+    },
+    { 
+        id: "lcl", 
+        titleKey: "servicesPage.lcl.title", 
+        descKey: "servicesPage.lcl.desc", 
+        featuresKey: "servicesPage.lcl.features", 
+        suitedForKey: "servicesPage.lcl.suited_for",
+        icon: Ship
+    },
+    { 
+        id: "dg", 
+        titleKey: "servicesPage.dg.title", 
+        descKey: "servicesPage.dg.desc", 
+        featuresKey: "servicesPage.dg.features", 
+        suitedForKey: "servicesPage.dg.suited_for",
+        icon: Truck // Заменить на подходящую иконку
+    },
+];
+
+
 
 // --- Секция "Наши услуги" (замена SKILLS_CATEGORY) ---
 export const SERVICES = [
@@ -46,11 +105,12 @@ export const COMPANY_JOURNEY = [
 
 // --- Секция "О компании" - Наши ценности (замена PASSIONS) ---
 export const COMPANY_VALUES = [
-    { id: "reliability", icon: ShieldCheck },
-    { id: "efficiency", icon: TrendingUp },
-    { id: "individualApproach", icon: Users },
-    { id: "punctuality", icon: Clock },
+    { id: "reliability", icon: ShieldCheck, titleKey: "aboutPage.value_reliability", descKey: "aboutPage.value_reliability_desc" },
+    { id: "transparency", icon: TrendingUp, titleKey: "aboutPage.value_transparency", descKey: "aboutPage.value_transparency_desc" },
+    { id: "expertise", icon: Award, titleKey: "aboutPage.value_expertise", descKey: "aboutPage.value_expertise_desc" },
+    { id: "partnership", icon: Users, titleKey: "aboutPage.value_partnership", descKey: "aboutPage.value_partnership_desc" }
 ];
+
 
 // --- Примеры кейсов / Наши проекты (замена PROJECTS) ---
 export const CASES = [
@@ -89,6 +149,14 @@ export const SOCIAL_LINKS = [
     { name: "Instagram", icon: FaInstagram, url: "", color: "hover:text-pink-500", bgColor: "hover:bg-pink-500/10" },
     { name: "Telegram", icon: FaTelegramPlane, url: "", color: "hover:text-cyan-500", bgColor: "hover:bg-cyan-500/10" },
     { name: "WhatsApp", icon: FaWhatsapp, url: "https://wa.me/77077030009", color: "hover:text-green-500", bgColor: "hover:bg-green-500/10" },
+];
+export const ACHIEVEMENTS = [
+    { value: "500+", label: "постоянных клиентов" },
+    { value: "3+", label: "стран доставки" },
+    { value: "10,000+", label: "тонн грузов в месяц" },
+    { value: "24/7", label: "поддержка клиентов" },
+    { value: "2", label: "собственных складов" },
+    { value: "ISO 9001", label: "сертификация качества" }
 ];
 
 // --- Контактная информация ---

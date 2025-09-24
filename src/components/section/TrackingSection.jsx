@@ -1,53 +1,65 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from '../../Context/ThemeContext';
-import { TRACKING_DATA } from "../../utils/data";
 import { itemVariants } from '../../utils/helper';
 import { Search, PackageCheck, PackageX, Truck, Info } from 'lucide-react';
-import { useTranslation, Trans } from 'react-i18next'; // 1. Импортируем useTranslation
+import { useTranslation, Trans } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify'; // Убедитесь, что toast импортирован
 
-// Объект для сопоставления статусов из data.js с ключами перевода
+// Этот объект остается полезным для перевода ОСНОВНОГО статуса груза
 const statusKeyMap = {
     "В пути": "inTransit",
     "Доставлен": "delivered",
     "Задержка": "delayed",
-    "Передан курьеру для доставки": "transferredToCourier",
-    "Прибыл на сортировочный центр": "arrivedAtSortingCenter",
-    "Покинул сортировочный центр": "leftSortingCenter",
-    "Принят в отделении": "acceptedAtBranch",
-    "Доставлен и вручен получателю": "deliveredToRecipient",
-    "Прошел таможенное оформление": "customsCleared",
-    "Отправлен из страны отправителя": "shippedFromOriginCountry",
-    "Задержка на таможне": "customsDelay",
-    "Прибыл в страну назначения": "arrivedInDestinationCountry"
 };
 
 const TrackingSection = () => {
     const { isDarkMode } = useTheme();
-    const { t } = useTranslation(); // 2. Инициализируем функцию перевода
+    const { t } = useTranslation();
     const sectionRef = useRef(null);
+    const token = useSelector((state) => state.auth.token);
 
     const [trackNumber, setTrackNumber] = useState('');
     const [trackingResult, setTrackingResult] = useState(null);
-    const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const [searched, setSearched] = useState(false);
+    
+    // --- ИЗМЕНЕНИЕ: Состояние 'error' полностью удалено. ---
+    // Вся обратная связь теперь идет через react-toastify.
 
-    const handleTrack = () => {
-        setSearched(true);
-        if (!trackNumber) {
-            setError(t("trackingSection.pleaseEnterNumber")); // Пример нового ключа
-            setTrackingResult(null);
+    const handleTrack = async () => {
+        // Проверка авторизации
+        if (!token) {
+            toast.info("Для отслеживания груза необходимо войти в систему.");
             return;
         }
 
-        const result = TRACKING_DATA[trackNumber.toUpperCase()];
+        // Проверка на пустое поле
+        if (!trackNumber) {
+            toast.warn(t("trackingSection.pleaseEnterNumber", "Пожалуйста, введите трек-номер."));
+            return;
+        }
+        
+        setSearched(true);
+        setIsLoading(true);
+        setTrackingResult(null); // Сбрасываем предыдущий результат
 
-        if (result) {
-            setTrackingResult(result);
-            setError('');
-        } else {
-            setTrackingResult(null);
-            setError(t("trackingSection.errorPrefix", { trackNumber: trackNumber }));
+        try {
+            const response = await fetch(`https://keruen-logistics-backend-production.up.railway.app/api/tracking/${trackNumber.toUpperCase()}`);
+            if (response.ok) {
+                const data = await response.json();
+                setTrackingResult(data);
+                toast.success(`Найден груз ${trackNumber.toUpperCase()}`);
+            } else {
+                // Если сервер ответил ошибкой (например, 404), показываем уведомление
+                toast.error(t("calculatorSection.errors.notFound", { trackNumber }));
+            }
+        } catch (err) {
+            console.error("Network error:", err);
+            toast.error("Ошибка сети. Не удалось подключиться к серверу отслеживания.");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -61,11 +73,7 @@ const TrackingSection = () => {
     };
 
     return (
-        <section
-            ref={sectionRef}
-            id="tracking"
-            className={`py-24 px-6 ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"}`}
-        >
+        <section ref={sectionRef} id="tracking" className={`py-24 px-6 ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"}`}>
             <div className="max-w-4xl mx-auto">
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="text-center mb-12">
                     <h2 className="text-3xl md:text-5xl font-light mb-4">
@@ -83,51 +91,60 @@ const TrackingSection = () => {
                         type="text"
                         value={trackNumber}
                         onChange={(e) => setTrackNumber(e.target.value)}
-                        placeholder={t("trackingSection.placeholder")}
+                        onKeyDown={(e) => e.key === 'Enter' && handleTrack()}
+                        placeholder={!token ? "Войдите, чтобы отслеживать" : t("trackingSection.placeholder")}
                         className={`flex-grow px-4 py-3 border rounded-lg outline-none transition-all duration-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 ${isDarkMode ? 'bg-gray-800/50 border-gray-700' : 'bg-white/80 border-gray-300'}`}
+                        disabled={!token || isLoading}
                     />
-                    <button onClick={handleTrack} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-transform duration-300 hover:scale-105">
-                        <Search size={18} />
-                        <span>{t("trackingSection.findButton")}</span>
+                    <button onClick={handleTrack} disabled={!token || isLoading} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-transform duration-300 hover:scale-105 disabled:bg-blue-400 disabled:scale-100">
+                        {isLoading ? (
+                            <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: "linear" }} className="w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
+                        ) : (
+                            <Search size={18} />
+                        )}
+                        <span>{isLoading ? t("submitting", "Поиск...") : t("trackingSection.findButton")}</span>
                     </button>
                 </motion.div>
 
                 <AnimatePresence>
-                    {searched && (
+                    {/* --- ИЗМЕНЕНИЕ: Блок результатов показывается только если есть результат и нет загрузки --- */}
+                    {searched && token && !isLoading && trackingResult && (
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 30 }}
                             transition={{ duration: 0.5, ease: "easeOut" }}
-                            className={`p-8 rounded-2xl border ${isDarkMode ? 'bg-gray-950/50 border-gray-800' : 'bg-gray-50/80 border-gray-200'}`}
+                            className={`p-8 rounded-2xl border min-h-[10rem] ${isDarkMode ? 'bg-gray-950/50 border-gray-800' : 'bg-gray-50/80 border-gray-200'}`}
                         >
-                            {error && <p className="text-center text-red-500">{error}</p>}
-
-                            {trackingResult && (
-                                <div>
-                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8 text-center md:text-left">
-                                        <div>
-                                            <p className="text-sm text-gray-500">{t("trackingSection.trackNumberLabel")}</p>
-                                            <p className="font-bold text-lg">{trackNumber.toUpperCase()}</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-sm text-gray-500">{t("trackingSection.routeLabel")}</p>
-                                            <p className="font-semibold">{trackingResult.origin} → {trackingResult.destination}</p>
-                                        </div>
-                                        <div className="col-span-2 md:col-span-1">
-                                            <p className="text-sm text-gray-500">{t("trackingSection.currentStatusLabel")}</p>
-                                            <div className="flex items-center justify-center md:justify-start gap-2 font-bold text-lg">
-                                                {getStatusIcon(trackingResult.status)}
-                                                {/* 3. Используем t() для перевода статуса */}
-                                                <span>{t(`trackingSection.status.${statusKeyMap[trackingResult.status]}`)}</span>
-                                            </div>
+                            {/* Отображение ошибки удалено отсюда, так как оно теперь в toast */}
+                            <div>
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8 text-center md:text-left">
+                                    <div>
+                                        <p className="text-sm text-gray-500">{t("trackingSection.trackNumberLabel")}</p>
+                                        <p className="font-bold text-lg">{trackingResult.trackingNumber.toUpperCase()}</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-sm text-gray-500">{t("trackingSection.routeLabel")}</p>
+                                        <p className="font-semibold">{trackingResult.origin} → {trackingResult.destination}</p>
+                                    </div>
+                                    <div className="col-span-2 md:col-span-1">
+                                        <p className="text-sm text-gray-500">{t("trackingSection.currentStatusLabel")}</p>
+                                        <div className="flex items-center justify-center md:justify-start gap-2 font-bold text-lg">
+                                            {getStatusIcon(trackingResult.status)}
+                                            <span>{t(`trackingSection.status.${statusKeyMap[trackingResult.status]}`, trackingResult.status)}</span>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div className="relative pl-8 border-l-2 [isDarkMode ? 'border-gray-700' : 'border-gray-300']">
-                                        {trackingResult.history.map((item, index) => (
+                                <div className="relative pl-8 border-l-2 [isDarkMode ? 'border-gray-700' : 'border-gray-300']">
+                                    {trackingResult.history.map((item, index) => {
+                                        const eventDate = new Date(item.timestamp);
+                                        const formattedDate = eventDate.toLocaleDateString('ru-RU');
+                                        const formattedTime = eventDate.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+
+                                        return (
                                             <motion.div
-                                                key={index}
+                                                key={item.id}
                                                 variants={itemVariants}
                                                 initial="hidden"
                                                 animate="visible"
@@ -138,15 +155,14 @@ const TrackingSection = () => {
                                                     <div className="absolute inset-0.5 rounded-full bg-blue-500 scale-0 animate-ping-slow" style={{ animationDelay: `${index * 0.2}s` }} />
                                                     <div className="absolute inset-0.5 rounded-full bg-blue-500" />
                                                 </div>
-                                                {/* 4. Используем t() для перевода статусов в истории */}
-                                                <p className="font-semibold">{t(`trackingSection.status.${statusKeyMap[item.status]}`)}</p>
+                                                <p className="font-semibold">{item.statusDescription}</p>
                                                 <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{item.location}</p>
-                                                <p className={`text-xs ${isDarkMode ? 'text-gray-500' : 'text-gray-600'}`}>{item.date}, {item.time}</p>
+                                                <p className={`text-xs ${isDarkMode ? 'text-gray-500' : 'text-gray-600'}`}>{formattedDate}, {formattedTime}</p>
                                             </motion.div>
-                                        ))}
-                                    </div>
+                                        );
+                                    })}
                                 </div>
-                            )}
+                            </div>
                         </motion.div>
                     )}
                 </AnimatePresence>
